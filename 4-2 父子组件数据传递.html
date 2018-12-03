@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>4-2 父子组件传递数据</title>
+<script src="vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- ①父组件以属性的方式向子组件传递数据 -->
+        <!-- ②count前加上: 意味着这双引号里的就是js表达式而不是字符串了 -->
+       <container :count='0' @inc="handleIncrease"></container>
+       <container :count='1' @inc="handleIncrease"></container>
+       <div>{{total}}</div>
+    </div> 
+    <script type="text/javascript">
+
+        //创建一个子组件 ，并且是局部组件,需要在vue实例中注册
+
+        var container = {
+            // ③我们需要在子组件定义一个属性去接收父组件传过来的值
+            props: ['count'],
+            data:function(){
+                return {
+                    number: this.count
+                }
+            },
+            // ④子组件就可以直接调用了
+            template: '<div  @click="handleClick">{{number}}</div>',
+            methods:{
+                handleClick:function(){
+                    // 子组件不可随意修改父组件传递的参数
+                    // this.count ++
+
+                    //但是又确实要改变值
+                    //我们用data
+                    this.number ++;
+
+
+                    //二。 子组件向外向父组件传值 用$emit方法
+                    this.$emit('inc',1);
+                }
+            }
+        }
+
+        var vm = new Vue({
+            el: '#app',
+            data:{
+                total:1,
+            },
+            components:{
+                container: container
+            },
+            methods:{
+                handleIncrease:function(step){
+                    this.total += step;
+                }
+            }            
+        });
+    </script>
+</body>
+</html>

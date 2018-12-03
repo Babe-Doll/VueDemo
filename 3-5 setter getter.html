@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title> 3-5 setter getter</title>
+<script src="vue.js"></script>
+</head>
+<body>
+   <div id="app">
+    {{fullName}}
+    {{age}}
+    </div> 
+    <script type="text/javascript">
+        
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                firstName: "1",
+                lastName: "2",
+                age: 28
+            },
+            //computed内置缓存
+            //fullName依赖两个变量，如果变量没有发生改变，那就不会重新计算
+            computed:{
+                // fullName:function(){
+                //     console.log("计算了");
+                //     return this.firstName + "," + this.lastName;
+                // }
+
+                //get这种方法与上面都一样
+                fullName:{
+                    get:function(){
+                        console.log("计算了");
+                        return this.firstName + "," + this.lastName;
+                    },
+                    set:function(value){
+                        var arr = value.split(" ");
+                        this.firstName = arr[0];
+                        this.lastName = arr[1];
+                        // console.log("我是set"+value);
+                    }
+                }
+                
+            }
+
+
+
+
+        });
+    </script>
+</body>
+</html>

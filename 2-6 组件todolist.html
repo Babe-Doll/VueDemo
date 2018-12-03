@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>2-6 todolist</title>
+<script src="vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- v-model指的是数据的双向绑定 -->
+        <input type="text" v-model="inputValue">
+        <button v-on:click="handleBtnClick">input</button>
+        <ul>
+            <!-- <li v-for="item in list">{{item}}</li> -->
+
+            <!-- v-bind是绑定，把v-for循环后的值item赋值给绑定的content -->
+            <todo-item v-bind:content="item" v-for="item in list"></todo-item>
+        </ul>
+    </div>
+    <script type="text/javascript">
+        //全局组件注册及使用：component是全局的组件，可以直接在模板中使用
+
+        // Vue.component("todo-item",{
+        //     //props指从父组件接收内容
+        //     props: ['content'],
+        //     template: "<li>{{content}}</li>"
+        // });
+
+        //局部组件： 如果要改成局部组件
+        var TodoItem = {
+            //props指从父组件接收内容
+            props: ['content'],
+            template: "<li>{{content}}</li>"
+        }
+
+        var app =new Vue({
+            el: '#app',
+            // 局部组件注册，意思是我们把todoitem这个组件注册到vue实例当中，原来叫todoitem，实例也叫todoitem
+            components: {
+                TodoItem: TodoItem
+            },
+            data: {
+                list: [],
+                inputValue: ''
+            },
+            methods: {
+                handleBtnClick: function(){
+                    this.list.push(this.inputValue);
+                    this.inputValue = '';
+                }
+            }
+        });
+    </script>
+</body>
+</html>

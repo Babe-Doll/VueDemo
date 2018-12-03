@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>2-7 todolist</title>
+<script src="vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <input type="text" v-model="inputValue">
+        <button v-on:click="handleBtnClick">input</button>
+        <ul>
+            <!-- v-bind是绑定，把v-for循环后的值item赋值给绑定的content -->
+            <todo-item v-bind:content="item" v-bind:index="index" v-for="(item,index) in list" @delete="handleItemDelete"></todo-item>
+        </ul>
+    </div>
+    <script type="text/javascript">
+        //总结：父组件通过v-bind给子组件传递值，同时子组件需要定义父组件传过来的字段用于接收。
+        //子组件用$emit方式通过触发上一层的事件给父组件的函数传参 父组件也要以@delete = v-delete 的形式监听
+        //v-bind：可以简写成：
+
+
+        var TodoItem = {
+            //props指从父组件接收内容,子组件如果想用下标，就必须声明
+            props: ['content', 'index'],
+            template: "<li @click='handleItemClick'>{{content}}</li>",
+            methods: {
+                handleItemClick: function(){
+                    //不仅触发delete事件。还把index作为参数传给父组件
+                    this.$emit("delete",this.index);        
+                }
+            }
+        }
+
+        var app =new Vue({
+            el: '#app',
+            components: {
+                TodoItem: TodoItem
+            },
+            data: {
+                list: [],
+                inputValue: ''
+            },
+            methods: {
+                handleBtnClick: function(){
+                    this.list.push(this.inputValue);
+                    this.inputValue = '';
+                },
+                handleItemDelete: function(index){
+                    this.list.splice(index,1);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

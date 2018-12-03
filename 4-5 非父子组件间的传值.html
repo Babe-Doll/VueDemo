@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>4-5 非父子组件间的传值</title>
+<script src="vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- 兄弟关系 -->
+        <child  content="babe"></child>
+        <child  content="doll"></child>
+
+    </div> 
+    <script type="text/javascript">
+        //bus指向vue的实例，只要我们之后new Vue或者创建组件的时候，每一个组件上都会有bus属性 ，并且挂在vue的prototype上
+        Vue.prototype.bus = new Vue()
+
+        Vue.component('child',{
+            data:function(){
+                return{
+                    con: this.content
+                }
+            },
+            props:{
+                content:String
+            },
+            template: '<div @click="handleClick">{{con}}</div>',
+            methods:{
+               handleClick: function(){
+                // 这里触发change事件
+                    this.bus.$emit('change', this.con)
+               }
+            },
+            // 组件被挂载时候的函数
+            mounted: function(){
+                var this_ = this
+                // 这里监听change事件
+                this.bus.$on('change',function(msg){
+
+                    // alert(msg)
+                    this_.con = msg
+                })
+            }    
+        })
+        var vm = new Vue({
+            el: '#app',
+            methods:{
+               
+            }            
+        });
+    </script>
+</body>
+</html>

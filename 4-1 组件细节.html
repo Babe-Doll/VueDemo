@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title> 4-1 </title>
+<script src="vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <container ref="one" @change1="handleChange"></container>
+        <container ref="two" @change1="handleChange"></container>
+        <div>{{total}}</div>
+    </div> 
+    <script type="text/javascript">
+
+        Vue.component('container',{
+            template: '<div @click="handleClick">{{number}}</div>',
+            data: function(){
+                return{
+                    number:0
+                }
+            },
+            methods: {
+                handleClick:function(){
+                    this.number ++
+                    // 子组件被点击时 ，并触发一个change事件，然后父组件监听这个事件时触发change方法
+                    this.$emit('change1')
+                }
+            }
+        })
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                total:0
+            },
+            methods: {
+                handleChange:function(){
+                    //打印的是子组件的引用
+                    console.log(this.$refs.one);
+                    console.log(this.$refs.one.number);
+                    this.total = this.$refs.one.number+this.$refs.one.number;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

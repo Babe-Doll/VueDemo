@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title> 3-4 计算属性 方法 和侦听器</title>
+<script src="vue.js"></script>
+</head>
+<body>
+   <div id="app">
+    {{fullName}}
+    {{age}}
+    </div> 
+    <script type="text/javascript">
+        
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                firstName: "1",
+                lastName: "2",
+                //这样写是不行的
+                //fullName: this.firstName + this.lastName,
+                fullName: "12 ",
+                age: 28
+            },
+
+            //侦听器
+            watch: {
+                firstName:function(){
+                    this.fullName = this.firstName + " " +this.lastName;
+                },
+                lastName: function(){
+                    this.fullName = this.firstName + " " +this.lastName;
+                }
+            }
+
+            //computed内置缓存
+            //fullName依赖两个变量，如果变量没有发生改变，那就不会重新计算
+            // computed:{
+            //     fullName:function(){
+            //         console.log("计算了");
+            //         return this.firstName + "," + this.lastName;
+            //     }
+            // }
+
+
+            //方法
+            // methods:{
+            //     fullName:function(){
+            //         console.log("计算了");
+            //         return this.firstName + "," + this.lastName;
+            //     }
+            // }
+
+
+        });
+    </script>
+</body>
+</html>

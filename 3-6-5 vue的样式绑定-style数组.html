@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title> 3-6-3 vue的样式绑定</title>
+<script src="vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- 元素绑定了一个class class的名字是activated变量中的内容-->
+        <div :style="[styleobj, {fontSize: '20px'}]"
+            @click="handleDivClick"
+        > hello world </div>
+    </div> 
+    <script type="text/javascript">
+        
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                styleobj:{
+                    color:"black"
+                }
+            },
+            methods: {
+                handleDivClick:function(){
+                    this.styleobj.color =  this.styleobj.color ==="black"?"red":"black"
+                }
+            }
+        });
+    </script>
+</body>
+</html>

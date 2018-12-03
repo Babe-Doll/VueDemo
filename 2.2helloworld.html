@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Hello world</title>
+<script src="vue.js"></script>
+</head>
+<body>
+    <div id ="app">{{content}}</div>
+    <script>
+        // var dom = document.getElementById("app");
+        // dom.innerHTML = "hello world";
+
+        //新建一个vue实例,这个el是指定元素id，data是指定内容
+        var app = new Vue({
+            el:"#app",
+            data:{
+                content:" hello world"
+            }
+        });
+
+        //如果我们想要延迟显示一个代码，那么我们需要用到settimeout
+        // var dom = document.getElementById("app");
+        // dom.innerHTML = "hello world";
+        // setTimeout(function(){
+
+        //     dom.innerHTML = "hello world!!!!!";
+        // },2000);    
+
+        //如果我们用vue实现延迟
+        setTimeout(function(){
+            app.$data.content = '!!!!!hello world'
+        },2000);
+
+    </script>
+</body>
+</html>

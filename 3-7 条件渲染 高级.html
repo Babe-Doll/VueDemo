@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title> 3-7 条件渲染</title>
+<script src="vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- if和else必须紧贴着出现 -->
+        <div v-if="show">
+            <!-- key值使view知道此元素唯一 不会复用 -->
+            用户名 <input type="text" key="username">
+        </div>
+        
+        <div v-else>
+            邮箱名 <input type="text" key="password">
+        </div>
+    </div> 
+    <script type="text/javascript">
+        
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                show: false,
+            },
+            methods: {
+                
+            }
+        });
+    </script>
+</body>
+</html>

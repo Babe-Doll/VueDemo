@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>3-1 vue实例</title>
+<script src="vue.js"></script>
+</head>
+<body>
+    <!-- v-on:click = @click -->
+    <div id="root" @click="handleClick">{{message}}
+        <item></item>
+    </div>
+    <script type="text/javascript">
+        //全局组建必须放在上面，要在初始化根实例之前注册组件
+        Vue.component('item',{
+            template: '<div>hello item</div>'
+        });
+        //下面这个根实例 和 vue中的组件都是vue实例
+        var vm = new Vue({
+            el: '#root',
+            data: {
+                message: 'hello world'
+            },
+            methods: {
+                handleClick:function(){
+                    alert(":a");
+                }
+            }
+        });
+
+        
+    </script>
+</body>
+</html>

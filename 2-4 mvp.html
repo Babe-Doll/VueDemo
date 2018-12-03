@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>2-4 todolist jquery</title>
+<script src="./vue.js"></script>
+<script src="./jquery.js"></script>
+</head>
+<body>
+    <div id="app">
+        <input type="text" id="input">
+        <button id="btn">input</button>
+        <ul>
+            <li id="todolist"></li>
+        </ul>
+    </div>
+    <script type="text/javascript">
+        //MVP
+        //M是模型层  前面的dom就是V view视图层 Presenter 就是控制器
+        //基本上所有操作都是在操作dom 
+        function Page(){
+
+        }
+
+        $.extend(Page.prototype,{
+            init: function(){
+                this.bindEvents()
+            },
+            bindEvents: function(){
+                var btn =$('#btn');
+                btn.on('click',$.proxy(this.handleBtnClick,this))
+            },
+            handleBtnClick: function(){
+                var inputValue = $("#input").val();
+                var ulElem = $("#todolist");
+                ulElem.append('<li>'+inputValue+'</li>');
+                $("#input").val('');
+            }
+        })
+        var page = new Page();
+        page.init();
+    </script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title> 3-7 条件渲染</title>
+<script src="vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- if和else必须紧贴着出现 -->
+        <div v-if="show">{{message}}</div>
+        <div v-else>222</div>
+        <!-- <div v-show="show">{{message}}</div> -->
+    </div> 
+    <script type="text/javascript">
+        
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                show:false,
+                message:"helloworld"
+            },
+            methods: {
+                
+            }
+        });
+    </script>
+</body>
+</html>

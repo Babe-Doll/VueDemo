@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title> 3-8 列表渲染</title>
+<script src="vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <table>
+            <tbody>
+                <!-- 看起来应该可以但是打印出来row中不出现任何内容 -->
+                <row></row>
+                <row></row>
+                <row></row>
+            </tbody>
+        </table>
+    </div> 
+    <script type="text/javascript">
+        Vue.component('row',{
+            template: '<tr><td> this is a cell</td></tr>'
+        })
+
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                userinfo: [1,2,3,4]
+            },
+            methods: {
+                
+            }
+        });
+    </script>
+</body>
+</html>

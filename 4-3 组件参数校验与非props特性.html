@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>4-3 组件参数校验与非props特性</title>
+<script src="vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- 父组件通过子组件的属性来传递参数 ，也有权进行约束 我们叫做校验-->
+
+        <child content="hel"></child>
+    </div> 
+    <script type="text/javascript">
+
+        Vue.component('child',{
+            //非props特性特点
+            // 1.如果下面的props不写那子组件就用不到父组件传的值
+            // 2.会展示在子组件的dom属性中
+
+            //下面是props特性使用方法
+            // 1. props: ['content'], 
+            // 2.
+            props: {
+                //1.要求是字符串、数字格式
+                content: String, //Number 
+                //2.要求是字符串或者数字格式都可以 
+                content: [String, Number] ,
+
+                //3.也可以这样写
+                content: {
+                    type: String,
+                    //是否必须传参，如果不传参 那么会显示一个默认值，default定义这个默认值
+                    required: false ,
+                    default: 'default value',
+                    //value是传入的内容，要求必须长度大于5
+                    validator: function(value){
+                        return (value.length > 5)
+                    }
+                }
+            },
+            template: '<div>{{content}}</div>'
+        })
+        var vm = new Vue({
+            el: '#app',
+            data:{
+                total:1,
+            },
+            methods:{
+                handleIncrease:function(step){
+                    this.total += step;
+                }
+            }            
+        });
+    </script>
+</body>
+</html>
